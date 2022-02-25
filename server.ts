@@ -4,6 +4,10 @@ import TuitController from "./controllers/TuitController";
 import TuitDao from "./daos/TuitDao";
 import UserDao from "./daos/UserDao";
 import mongoose from "mongoose";
+import LikeController from "./controllers/LikeController";
+import FollowController from "./controllers/FollowController";
+import BookmarkController from "./controllers/BookmarkController";
+import MessageController from "./controllers/MessageController";
 
 const DB_USERNAME = 'vaishnavi';
 const DB_PASSWORD = 'vaishnavi';
@@ -25,7 +29,10 @@ app.get('/add/:a/:b', (req: Request, res: Response) =>
 
 const userController = new UserController(app, userDao );
 const tuitController = new TuitController(app, tuitDao );
-
+const likesController = LikeController.getInstance(app);
+const followController = FollowController.getInstance(app);
+const bookmarkController = BookmarkController.getInstance(app);
+const messageController = MessageController.getInstance(app);
 
 
 const PORT = 4000;
