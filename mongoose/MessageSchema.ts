@@ -1,5 +1,7 @@
+/**
+ * @file Implements mongoose schema for messages
+ */
 import mongoose, {Schema} from "mongoose";
-import Bookmark from "../models/Bookmark";
 import Message from "../models/Message";
 
 const MessageSchema = new mongoose.Schema<Message>({

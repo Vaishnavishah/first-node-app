@@ -1,3 +1,6 @@
+/**
+ * @file Implements mongoose schema for bookmark
+ */
 import mongoose, {Schema} from "mongoose";
 import Bookmark from "../models/Bookmark";
 

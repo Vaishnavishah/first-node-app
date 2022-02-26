@@ -54,6 +54,7 @@ export default class BookmarkController implements BookmarkControllerI {
 
 
     /**
+     * User can bookmark a tuit from the database
      * @param {Request} req Represents request from client, including the
      * path parameters uid and tid representing the user that is bookmarking the tuit
      * and the tuit being bookmarked
@@ -66,6 +67,7 @@ export default class BookmarkController implements BookmarkControllerI {
             .then(bookmarks => res.json(bookmarks));
 
     /**
+     * User can unmark the previously bookmarked tuit
      * @param {Request} req Represents request from client, including the
      * path parameters uid and tid representing the user that is unmarking
      * the tuit and the tuit being unmarked

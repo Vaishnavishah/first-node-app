@@ -1,15 +1,15 @@
 /**
- * @file Declares Follow data type representing relationship between
- * two users, as in user follows another user
+ * @file Declares Bookmark data type representing relationship between
+ * users and the tuit, as in user bookmarks a tuit
  */
 import User from "./User";
 import Tuit from "./Tuit";
 
 /**
- * @typedef Follow Represents follow relationship between two users,
- * as in a user follows another user
- * @property {User} userFollowed  user that is being followed
- * @property {User} userFollowing User that started following another user
+ * @typedef Bookmark Represents bookmark relationship between
+ * users and the tuit, as in user bookmarks a tuit
+ * @property {User} userBookmarking  user that is bookmarking
+ * @property {Tuit} tuitBookmarked Tuit that is being bookmarked
  */
 
 export default interface Bookmark {

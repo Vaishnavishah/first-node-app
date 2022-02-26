@@ -1,8 +1,7 @@
-import Like from "../models/Like";
 import Message from "../models/Message";
 
 /**
- * @file Declares API for Likes related data access object methods
+ * @file Declares API for Messages related data access object methods
  */
 export default interface MessageDaoI {
     userSendsMessage(message: Message) : Promise<Message>;
