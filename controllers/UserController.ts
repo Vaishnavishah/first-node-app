@@ -33,6 +33,14 @@ export default class UserController implements UserControllerI {
         this.app.post('/users', this.createUser);
         this.app.delete('/users/:userid', this.deleteUser);
         this.app.put('/users/:userid', this.updateUser);
+        this.app.delete("/users", this.deleteAllUsers);
+        this.app.post("/login", this.login);
+
+        // for testing. Not RESTful
+        this.app.get("/users/create", this.createUser);
+        this.app.get("/users/id/:uid/delete", this.deleteUser);
+        this.app.get("/users/username/:username/delete", this.deleteUsersByUsername);
+        this.app.get("/users/delete", this.deleteAllUsers);
     }
 
     /**
@@ -87,5 +95,34 @@ export default class UserController implements UserControllerI {
     updateUser = (req: Request, res: Response) =>
         this.userDao.updateUser(req.params.userid, req.body)
             .then(status => res.json(status));
-}
+
+    /**
+     * Removes all user instances from the database. Useful for testing
+     * @param {Request} req Represents request from client
+     * @param {Response} res Represents response to client, including status
+     * on whether deleting all users was successful or not
+     */
+    deleteAllUsers = (req: Request, res: Response) =>
+        this.userDao.deleteAllUsers()
+            .then(status => res.send(status));
+
+
+    deleteUsersByUsername = (req: Request, res: Response) =>
+        this.userDao.deleteUsersByUsername(req.params.username)
+            .then(status => res.send(status));
+
+    login = (req: Request, res: Response) =>
+        this.userDao.findUserByCredentials(req.body.username, req.body.password)
+            .then(user => {
+                res.json(user)});
+
+    register = (req: Request, res: Response) =>
+        this.userDao.findUserByUsername(req.body.username)
+            .then(user => {
+
+            })
+};
+
+
+
 

@@ -23,6 +23,8 @@ import LikeController from "./controllers/LikeController";
 import FollowController from "./controllers/FollowController";
 import BookmarkController from "./controllers/BookmarkController";
 import MessageController from "./controllers/MessageController";
+import CourseController from "./controllers/CourseController";
+var cors = require('cors')
 
 //connection to database
 const connectionString = 'mongodb+srv://vaishnavi:vaishnavi@cluster0.zct7x.mongodb.net/tuiterdb?retryWrites=true&w=majority'
@@ -33,6 +35,7 @@ const app = express();
 const userDao = new UserDao();
 const tuitDao = new TuitDao();
 app.use(express.json());
+app.use(cors());
 
 app.get('/', (req: Request, res: Response) =>
     res.send('Welcome!'));
@@ -45,6 +48,7 @@ const likesController = LikeController.getInstance(app);
 const followController = FollowController.getInstance(app);
 const bookmarkController = BookmarkController.getInstance(app);
 const messageController = MessageController.getInstance(app);
+const courseController = new CourseController(app);
 
 // Start a server listening at port 4000 locally
 const PORT = 4000;
