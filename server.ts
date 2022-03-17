@@ -32,7 +32,7 @@ mongoose.connect(connectionString);
 
 // create RESTful Web service API
 const app = express();
-const userDao = new UserDao();
+const userDao = UserDao.getInstance();
 const tuitDao = new TuitDao();
 app.use(express.json());
 app.use(cors());

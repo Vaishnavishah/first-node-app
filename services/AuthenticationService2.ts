@@ -42,7 +42,7 @@ export const register = async (u: string, p: string, e: string) => {
 export const initializeSalaries = async (salary: number) => {
   const users = await userDao.findAllUsers()
   const salaryPromises = users.map(user =>
-    userDao.updateUserSalaryByUsername(user.username, salary));
+    userDao.updateUserSalayByUsername(user.username, salary));
   const values = await Promise.all(salaryPromises);
   return values;
 }

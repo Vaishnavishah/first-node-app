@@ -44,7 +44,7 @@ export const initializeSalaries = (salary: number) => {
   return userDao.findAllUsers()
     .then(users => {
       const sPromises = users.map(user =>
-        userDao.updateUserSalaryByUsername(user.username, salary));
+        userDao.updateUserSalayByUsername(user.username, salary));
       const resultPromise = Promise.all(sPromises);
       resultPromise
         .then(values => {
@@ -59,7 +59,7 @@ export const giveRaise = (raise: number) => {
       const salaryPromises = users.map(user => {
         // @ts-ignore
         const newSalary = user.salary * (1 + raise / 100);
-        return userDao.updateUserSalaryByUsername(
+        return userDao.updateUserSalayByUsername(
           user.username,
           newSalary)
       });

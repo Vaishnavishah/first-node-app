@@ -9,6 +9,23 @@ import UserDaoI from "../interfaces/UserDaoI";
  * This class represents the User DAO for implementing the API endpoints for User resource.
  */
 export default class UserDao implements UserDaoI {
+
+    private static userDao: UserDao | null = null;
+
+    /**
+     * Creates singleton DAO instance
+     * @return UserDao
+     */
+    public static getInstance = (): UserDao => {
+        if(UserDao.userDao === null) {
+            UserDao.userDao = new UserDao();
+        }
+        return UserDao.userDao;
+    }
+    private constructor() {}
+
+
+
     /**
      * To find all the users in the database
      */
@@ -51,7 +68,7 @@ export default class UserDao implements UserDaoI {
     }
 
     async updateUserSalayByUsername(username: string, salary: number): Promise<any> {
-        return await UserModel.upateOne({username},
+        return await UserModel.updateOne({username},
             {$set: {salary: salary}});
     }
 
