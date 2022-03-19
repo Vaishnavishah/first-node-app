@@ -34,7 +34,7 @@ export default class TuitController implements TuitControllerI {
         this.app.get('/tuits', this.findAllTuits);
         this.app.get('/tuits/:tid', this.findTuitById);
         this.app.get('/users/:uid/tuits', this.findTuitsByUser);
-        this.app.post('/tuits', this.createTuit);
+        this.app.post("/users/:uid/tuits", this.createTuit);
         this.app.delete('/tuits/:tid', this.deleteTuit);
         this.app.put('/tuits/:tid', this.updateTuit);
     }
@@ -47,7 +47,7 @@ export default class TuitController implements TuitControllerI {
      * database
      */
     createTuit = (req: Request, res: Response) =>
-        this.tuitDao.createTuit(req.body)
+        this.tuitDao.createTuit(req.params.uid, req.body)
             .then(tuit => res.json(tuit));
 
     /**
@@ -68,7 +68,7 @@ export default class TuitController implements TuitControllerI {
      */
     findAllTuits = (req: Request, res: Response) =>
         this.tuitDao.findAllTuits()
-            .then(tuits => res.json(tuits));
+            .then(tuits => {console.log(tuits);return res.json(tuits)});
 
     /**
      * Retrieves all tuits with a particular id from the database

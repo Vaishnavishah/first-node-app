@@ -17,6 +17,7 @@ import Location from "./Location";
  * @property {MaritalStatus} maritalStatus marital status of the user
  */
 export default class User {
+
     username: string = '';
     password: string = '';
     firstName?: string | null = null;

@@ -51,7 +51,7 @@ export default class UserController implements UserControllerI {
      */
     findAllUsers = (req: Request, res: Response) =>
         this.userDao.findAllUsers()
-            .then(users => res.json(users));
+            .then(users => {console.log(users); return res.json(users)});
 
     /**
      * Retrieves all users with a particular id from the database

@@ -12,10 +12,11 @@ export default class TuitDao implements TuitDaoI {
 
     /**
      * User can create a tuit
+     * @param uid
      * @param tuit tuit that is to be created
      */
-    async createTuit(tuit: Tuit): Promise<Tuit> {
-        return TuitModel.create({...tuit});
+    async createTuit(uid: string, tuit: Tuit): Promise<Tuit> {
+        return TuitModel.create({...tuit, postedBy: uid});
     }
 
     /**
@@ -23,7 +24,8 @@ export default class TuitDao implements TuitDaoI {
      * @param tid tuit that is to be deleted
      */
     async deleteTuit(tid: string): Promise<any> {
-        TuitModel.deleteOne({_id: tid});
+        //console.log(tid)
+        return await TuitModel.deleteOne({_id: tid});
     }
 
     /**
