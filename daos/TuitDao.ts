@@ -47,7 +47,7 @@ export default class TuitDao implements TuitDaoI {
      * To get al tuits by a particular user
      * @param uid user ID
      */
-    async findTuitsByUser(uid: string): Promise<Tuit[]> {
+    async findAllTuitsByUser(uid: string): Promise<Tuit[]> {
         return TuitModel.find({postedBy: uid});
     }
 
@@ -60,6 +60,19 @@ export default class TuitDao implements TuitDaoI {
         return TuitModel.updateOne(
             {_id: tid},
             {$set: tuit});
+    }
+
+
+    async createTuitByUser(uid: string, tuit: Tuit): Promise<Tuit> {
+        return TuitModel.create({...tuit, postedBy: uid});
+    }
+
+
+    async updateLikes(tid: string, newStats: any): Promise<any> {
+        return TuitModel.updateOne(
+            {_id: tid},
+            {$set: {stats: newStats}}
+        );
     }
 
 }

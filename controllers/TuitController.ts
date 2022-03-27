@@ -33,10 +33,12 @@ export default class TuitController implements TuitControllerI {
         this.tuitDao = tuitDao;
         this.app.get('/tuits', this.findAllTuits);
         this.app.get('/tuits/:tid', this.findTuitById);
-        this.app.get('/users/:uid/tuits', this.findTuitsByUser);
+        this.app.get('/users/:uid/tuits', this.findAllTuitsByUser);
         this.app.post("/users/:uid/tuits", this.createTuit);
         this.app.delete('/tuits/:tid', this.deleteTuit);
         this.app.put('/tuits/:tid', this.updateTuit);
+        this.app.post("/users/:uid/tuits",this.createTuitByUser);
+
     }
 
     /**
@@ -81,16 +83,23 @@ export default class TuitController implements TuitControllerI {
         this.tuitDao.findTuitById(req.params.tid)
             .then(tuit => res.json(tuit));
 
+
+
     /**
-     * Retrieves all tuits that are posted by user from the database
-     * @param {Request} req Represents request from client, including the path
-     * parameter uid representing the user for which tuits are to be retrieved
+     * Retrieves all tuits from the database for a particular user and returns
+     * an array of tuits.
+     * @param {Request} req Represents request from client
      * @param {Response} res Represents response to client, including the
      * body formatted as JSON arrays containing the tuit objects
      */
-    findTuitsByUser = (req: Request, res: Response) =>
-        this.tuitDao.findTuitsByUser(req.params.uid)
-            .then(tuit => res.json(tuit));
+    findAllTuitsByUser = (req: Request, res: Response) => {
+        // @ts-ignore
+        let userId = req.params.uid === "my" && req.session['profile'] ?
+            // @ts-ignore
+            req.session['profile']._id : req.params.uid;
+        this.tuitDao.findAllTuitsByUser(userId)
+            .then((tuits) => res.json(tuits));
+    }
 
     /**
      * Updates a tuit that is posted by user from the database
@@ -98,6 +107,26 @@ export default class TuitController implements TuitControllerI {
      * parameter tid representing the tuit that is beng updated and body contains new content
      * @param {Response} res Represents response to client, including the
      * status of the updation
+     * body formatted as JSON containing the new tuit that was inserted in the
+     * database
+     */
+    createTuitByUser = (req: Request, res: Response) => {
+        // @ts-ignore
+        let userId = req.params.uid === "my" && req.session['profile'] ?
+            // @ts-ignore
+            req.session['profile']._id : req.params.uid;
+
+        console.log(userId);
+
+        this.tuitDao.createTuitByUser(userId, req.body)
+            .then((tuit) => res.json(tuit));
+    }
+
+    /**
+     * @param {Request} req Represents request from client, including path
+     * parameter tid identifying the primary key of the tuit to be modified
+     * @param {Response} res Represents response to client, including status
+     * on whether updating a tuit was successful or not
      */
     updateTuit = (req: Request, res: Response) =>
         this.tuitDao.updateTuit(req.params.tid, req.body)
