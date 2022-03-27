@@ -25,7 +25,7 @@ import TuitDao from "../daos/TuitDao";
  */
 export default class LikeController implements LikeControllerI {
     private static likeDao: LikeDao = LikeDao.getInstance();
-    private static tuitDao: TuitDao = TuitDao.getInstance();
+    private static tuitDao: TuitDao = new TuitDao();
     private static likeController: LikeController | null = null;
     /**
      * Creates singleton controller instance
@@ -36,9 +36,9 @@ export default class LikeController implements LikeControllerI {
     public static getInstance = (app: Express): LikeController => {
         if(LikeController.likeController === null) {
             LikeController.likeController = new LikeController();
-            app.get("/api/users/:uid/likes", LikeController.likeController.findAllTuitsLikedByUser);
-            app.get("/api/tuits/:tid/likes", LikeController.likeController.findAllUsersThatLikedTuit);
-            app.put("/api/users/:uid/likes/:tid", LikeController.likeController.userTogglesTuitLikes);
+            app.get("/users/:uid/likes", LikeController.likeController.findAllTuitsLikedByUser);
+            app.get("/tuits/:tid/likes", LikeController.likeController.findAllUsersThatLikedTuit);
+            app.put("/users/:uid/likes/:tid", LikeController.likeController.userTogglesTuitLikes);
         }
         return LikeController.likeController;
     }

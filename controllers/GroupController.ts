@@ -30,11 +30,11 @@ const GroupController = (app: Express) => {
         dao.findGroupsForUser(req.params.uid)
             .then(groups => res.json(groups));
     
-    app.get('/api/groups', findAllGroups);
-    app.get('/api/groups/:gid', findGroupById);
-    app.get('/api/groups/name/:name', findGroupByName);
-    app.post('/api/groups', createGroup);
-    app.delete('/api/groups/:gid', deleteGroup);
+    app.get('/groups', findAllGroups);
+    app.get('/groups/:gid', findGroupById);
+    app.get('/groups/name/:name', findGroupByName);
+    app.post('/groups', createGroup);
+    app.delete('/groups/:gid', deleteGroup);
     app.post('/users/:uid/groups/:gid', addUserToGroup);
     app.delete('/users/:uid/groups/:gid', removeUserFromGroup);
 }
