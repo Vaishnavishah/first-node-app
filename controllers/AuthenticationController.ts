@@ -63,10 +63,34 @@ const AuthenticationController = (app: Express) => {
         res.sendStatus(200);
     }
 
-    app.post("auth/login", login);
-    app.post("auth/register", register);
-    app.post("auth/profile", profile);
-    app.post("auth/logout", logout);
+    const signup = async (req: Request, res: Response) => {
+        const newUser = req.body;
+        const password = newUser.password;
+        const hash = await bcrypt.hash(password, saltRounds);
+        newUser.password = hash;
+
+        const existingUser = await userDao
+            .findUserByUsername(req.body.username);
+        if (existingUser) {
+            res.sendStatus(403);
+            return;
+        } else {
+            const insertedUser = await userDao
+                .createUser(newUser);
+            insertedUser.password = '';
+            // @ts-ignore
+            req.session['profile'] = insertedUser;
+            res.json(insertedUser);
+        }
+    }
+
+
+    app.post("/auth/login", login);
+    app.post("/auth/register", register);
+    app.post("/auth/profile", profile);
+    app.post("/auth/logout", logout);
+    app.post("/auth/signup", signup);
+
 }
 
 export default AuthenticationController;

@@ -37,7 +37,7 @@ export default class TuitController implements TuitControllerI {
         this.app.post("/users/:uid/tuits", this.createTuit);
         this.app.delete('/tuits/:tid', this.deleteTuit);
         this.app.put('/tuits/:tid', this.updateTuit);
-        this.app.post("/users/:uid/tuits",this.createTuitByUser);
+        this.app.post("/users/:uid/tuit",this.createTuitByUser);
 
     }
 
@@ -97,6 +97,7 @@ export default class TuitController implements TuitControllerI {
         let userId = req.params.uid === "my" && req.session['profile'] ?
             // @ts-ignore
             req.session['profile']._id : req.params.uid;
+        console.log("find all tuit "+userId);
         this.tuitDao.findAllTuitsByUser(userId)
             .then((tuits) => res.json(tuits));
     }
@@ -116,7 +117,8 @@ export default class TuitController implements TuitControllerI {
             // @ts-ignore
             req.session['profile']._id : req.params.uid;
 
-        console.log(userId);
+
+        console.log('Inside createTuitByUser: ' + userId);
 
         this.tuitDao.createTuitByUser(userId, req.body)
             .then((tuit) => res.json(tuit));

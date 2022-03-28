@@ -36,14 +36,18 @@ const session = require("express-session");
 const connectionString = 'mongodb+srv://vaishnavi:vaishnavi@cluster0.zct7x.mongodb.net/tuiterdb?retryWrites=true&w=majority'
 mongoose.connect(connectionString);
 
+
+
 // create RESTful Web service API
 const app = express();
-const userDao = UserDao.getInstance();
-const tuitDao = new TuitDao();
+
 app.use(cors({
     credentials: true,
     origin: 'http://localhost:3000'
 }));
+
+const userDao = UserDao.getInstance();
+const tuitDao = new TuitDao();
 
 const SECRET = 'process.env.SECRET';
 let sess = {
@@ -62,7 +66,7 @@ if (process.env.ENVIRONMENT === 'PRODUCTION') {
 
 app.use(session(sess))
 app.use(express.json());
-app.use(cors());
+
 
 app.get('/', (req: Request, res: Response) =>
     res.send('Welcome!'));
