@@ -39,6 +39,7 @@ export default class LikeController implements LikeControllerI {
             app.get("/users/:uid/likes", LikeController.likeController.findAllTuitsLikedByUser);
             app.get("/tuits/:tid/likes", LikeController.likeController.findAllUsersThatLikedTuit);
             app.put("/users/:uid/likes/:tid", LikeController.likeController.userTogglesTuitLikes);
+            app.put("/users/:uid/unlikes/:tid", LikeController.likeController.userTogglesTuitUnlikes);
         }
         return LikeController.likeController;
     }
@@ -108,6 +109,33 @@ export default class LikeController implements LikeControllerI {
                 await LikeController.likeDao.userLikesTuit(userId, tid);
                 tuit.stats.likes = howManyLikedTuit + 1;
             };
+            await tuitDao.updateLikes(tid, tuit.stats);
+            res.sendStatus(200);
+        } catch (e) {
+            res.sendStatus(404);
+        }
+    }
+
+    userTogglesTuitUnlikes = async (req: Request, res: Response) => {
+        const likeDao = LikeController.likeDao;
+        const tuitDao = LikeController.tuitDao;
+        const uid = req.params.uid;
+        const tid = req.params.tid;
+        // @ts-ignore
+        const profile = req.session['profile'];
+        const userId = uid === "my" && profile ?
+            profile._id : uid;
+        try {
+            const userAlreadyLikedTuit = await likeDao.findUserLikesTuit(userId, tid);
+            const howManyLikedTuit = await likeDao.countHowManyLikedTuit(tid);
+            let tuit = await tuitDao.findTuitById(tid);
+            if (userAlreadyLikedTuit) {
+                await likeDao.userUnlikesTuit(userId, tid);
+                tuit.stats.likes = howManyLikedTuit - 1;
+            } else {
+                // await LikeController.likeDao.userLikesTuit(userId, tid);
+                // tuit.stats.likes = howManyLikedTuit + 1;
+            }
             await tuitDao.updateLikes(tid, tuit.stats);
             res.sendStatus(200);
         } catch (e) {
