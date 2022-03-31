@@ -29,6 +29,7 @@ import MessageController from "./controllers/MessageController";
 import CourseController from "./controllers/CourseController";
 
 import GroupController from "./controllers/GroupController";
+import DislikeController from "./controllers/DislikeController";
 const cors = require("cors");
 const session = require("express-session");
 
@@ -80,6 +81,7 @@ const followController = FollowController.getInstance(app);
 const bookmarkController = BookmarkController.getInstance(app);
 const messageController = MessageController.getInstance(app);
 const courseController = new CourseController(app);
+const dislikeController = DislikeController.getInstance(app);
 
 // Start a server listening at port 4000 locally
 SessionController(app);
