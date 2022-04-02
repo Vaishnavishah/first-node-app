@@ -35,13 +35,6 @@ const session = require("express-session");
 
 // create RESTful Web service API
 const app = express();
-app.options('*', cors({
-    credentials: true,
-    //origin: 'http://localhost:3000'
-    origin: 'https://starlit-gecko-ed392c.netlify.app',
-    allowHeaders: ['Content-Type', 'Accept'],
-    methods: ['GET', 'PUT', 'POST', 'DELETE','OPTIONS']
-}));
 
 app.use(cors({
     credentials: true,
@@ -76,9 +69,9 @@ let sess = {
 
 if (process.env.NODE_ENV === 'PRODUCTION') {
     app.set('trust proxy', 1) // trust first proxy
-    sess.cookie.secure = true // serve secure cookies
+    //sess.cookie.secure = true // serve secure cookies
 }
-console.log(process.env);
+
 app.use(session(sess))
 app.use(express.json());
 
