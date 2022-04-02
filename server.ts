@@ -42,6 +42,22 @@ app.use(cors({
     origin: 'https://6248988ccf41f7560e1b4389--starlit-gecko-ed392c.netlify.app'
 }));
 
+// Add headers
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'https://6248988ccf41f7560e1b4389--starlit-gecko-ed392c.netlify.app');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Pass to next layer of middleware
+    next();
+});
+
 //connection to database
 const connectionString = 'mongodb+srv://vaishnavi:vaishnavi@cluster0.zct7x.mongodb.net/tuiterdb?retryWrites=true&w=majority'
 mongoose.connect(connectionString);
@@ -72,6 +88,7 @@ if (process.env.ENVIRONMENT === 'PRODUCTION') {
 
 app.use(session(sess))
 app.use(express.json());
+
 
 
 app.get('/', (req: Request, res: Response) =>
