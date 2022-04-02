@@ -45,7 +45,7 @@ const app = express();
 app.use(cors({
     credentials: true,
     //origin: 'http://localhost:3000'
-    origin: process.env.CORS_ORIGIN
+    origin: 'https://starlit-gecko-ed392c.netlify.app'
 }));
 
 const userDao = UserDao.getInstance();
