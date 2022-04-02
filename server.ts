@@ -39,7 +39,9 @@ const app = express();
 app.use(cors({
     credentials: true,
     //origin: 'http://localhost:3000'
-    origin: 'https://starlit-gecko-ed392c.netlify.app'
+    origin: 'https://starlit-gecko-ed392c.netlify.app',
+    allowHeaders: ['Content-Type', 'Accept'],
+    methods: ['GET', 'PUT', 'POST', 'DELETE','OPTIONS']
 }));
 
 //connection to database
