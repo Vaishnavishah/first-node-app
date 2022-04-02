@@ -39,7 +39,7 @@ const app = express();
 app.use(cors({
     credentials: true,
     //origin: 'http://localhost:3000'
-    origin: 'https://starlit-gecko-ed392c.netlify.app',
+    origin: 'http://starlit-gecko-ed392c.netlify.app',
     allowHeaders: ['Content-Type', 'Accept'],
     methods: ['GET', 'PUT', 'POST', 'DELETE','OPTIONS']
 }));
@@ -67,11 +67,11 @@ let sess = {
     }
 }
 
-if (process.env.ENVIRONMENT === 'PRODUCTION') {
+if (process.env.NODE_ENV === 'PRODUCTION') {
     app.set('trust proxy', 1) // trust first proxy
     sess.cookie.secure = true // serve secure cookies
 }
-
+console.log(process.env);
 app.use(session(sess))
 app.use(express.json());
 
