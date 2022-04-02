@@ -38,8 +38,8 @@ const app = express();
 
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:3000'
-    //origin: 'https://starlit-gecko-ed392c.netlify.app'
+    //origin: 'http://localhost:3000'
+    origin: 'https://starlit-gecko-ed392c.netlify.app'
 }));
 
 //connection to database
