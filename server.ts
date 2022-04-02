@@ -33,12 +33,6 @@ import DislikeController from "./controllers/DislikeController";
 const cors = require("cors");
 const session = require("express-session");
 
-//connection to database
-const connectionString = 'mongodb+srv://vaishnavi:vaishnavi@cluster0.zct7x.mongodb.net/tuiterdb?retryWrites=true&w=majority'
-mongoose.connect(connectionString);
-
-
-
 // create RESTful Web service API
 const app = express();
 
@@ -47,6 +41,14 @@ app.use(cors({
     //origin: 'http://localhost:3000'
     origin: 'https://6248988ccf41f7560e1b4389--starlit-gecko-ed392c.netlify.app'
 }));
+
+//connection to database
+const connectionString = 'mongodb+srv://vaishnavi:vaishnavi@cluster0.zct7x.mongodb.net/tuiterdb?retryWrites=true&w=majority'
+mongoose.connect(connectionString);
+
+
+
+
 
 const userDao = UserDao.getInstance();
 const tuitDao = new TuitDao();
