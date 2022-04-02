@@ -44,7 +44,8 @@ const app = express();
 
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:3000'
+    //origin: 'http://localhost:3000'
+    origin: process.env.CORS_ORIGIN
 }));
 
 const userDao = UserDao.getInstance();
@@ -52,11 +53,13 @@ const tuitDao = new TuitDao();
 
 const SECRET = 'process.env.SECRET';
 let sess = {
-    secret: SECRET,
+    //secret: SECRET,
+    secret: process.env.EXPRESS_SESSION_SECRET,
     saveUninitialized: true,
     resave: true,
     cookie: {
-        secure: false
+        sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
+        secure: process.env.NODE_ENV === "production",
     }
 }
 
