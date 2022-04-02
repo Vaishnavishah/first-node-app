@@ -35,6 +35,13 @@ const session = require("express-session");
 
 // create RESTful Web service API
 const app = express();
+app.options('*', cors({
+    credentials: true,
+    //origin: 'http://localhost:3000'
+    origin: 'https://starlit-gecko-ed392c.netlify.app',
+    allowHeaders: ['Content-Type', 'Accept'],
+    methods: ['GET', 'PUT', 'POST', 'DELETE','OPTIONS']
+}));
 
 app.use(cors({
     credentials: true,
