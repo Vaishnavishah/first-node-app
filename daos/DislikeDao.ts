@@ -6,14 +6,14 @@ import DislikeModel from "../mongoose/DislikeModel";
 import Dislike from "../models/Dislike";
 
 /**
- * This class represents the Like DAO for implementing the API endpoints for Like resource.
+ * This class represents the dislike DAO for implementing the API endpoints for dislike resource.
  */
 export default class DislikeDao implements DislikeDaoI {
     private static dislikedao: DislikeDao | null = null;
 
     /**
      * Creates singleton DAO instance
-     * @return LikeDao
+     * @return dislikeDao
      */
     public static getInstance = (): DislikeDao => {
         if(DislikeDao.dislikedao === null) {
@@ -24,8 +24,8 @@ export default class DislikeDao implements DislikeDaoI {
     private constructor() {}
 
     /**
-     * Retrieves all users that liked a tuit from the database
-     * @param tid represents the liked tuit
+     * Retrieves all users that disliked a tuit from the database
+     * @param tid represents the disliked tuit
      */
     findAllUsersThatDislikedTuit = async (tid: string): Promise<Dislike[]> =>
         DislikeModel
@@ -34,8 +34,8 @@ export default class DislikeDao implements DislikeDaoI {
             .exec();
 
     /**
-     * Retrieves all tuits liked by a user from the database
-     * @param uid represents the user liked the tuits
+     * Retrieves all tuits disliked by a user from the database
+     * @param uid represents the user disliked the tuits
      */
     findAllTuitsDislikedByUser = async (uid: string): Promise<Dislike[]> =>
         DislikeModel
@@ -49,17 +49,17 @@ export default class DislikeDao implements DislikeDaoI {
             .exec();
 
     /**
-     * User can like a tuit
+     * User can dislike a tuit
      * @param uid user that is liking
-     * @param tid tuit that is being liked
+     * @param tid tuit that is being disliked
      */
     userDislikesTuit = async (uid: string, tid: string): Promise<any> =>
         DislikeModel.create({tuit: tid, dislikedBy: uid});
     /**
-     *  check if there's a likes document in the database for
+     *  check if there's a dislikes document in the database for
      * user/tuit combination
      * @param uid user that is liking
-     * @param tid tuit that is being liked
+     * @param tid tuit that is being disliked
      */
     findUserDislikesTuit = async (uid: string, tid: string): Promise<any> =>
         DislikeModel.findOne({tuit: tid, dislikedBy: uid});

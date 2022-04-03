@@ -25,13 +25,13 @@ const SessionController = (app: Express) => {
         res.send(200);
     }
     
-    app.get('/api/session/set/:name/:value',
+    app.get('/session/set/:name/:value',
         setSession);
-    app.get('/api/session/get/:name',
+    app.get('/session/get/:name',
         getSession);
-    app.get('/api/session/get',
+    app.get('/session/get',
         getSessionAll);
-    app.get('/api/session/reset',
+    app.get('/session/reset',
         resetSession);
 }
 

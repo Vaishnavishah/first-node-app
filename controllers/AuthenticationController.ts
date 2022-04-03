@@ -3,6 +3,11 @@ import UserDao from "../daos/UserDao";
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+/**
+ * This file represents the controller for authentication related functionalities like signup, login, logout
+ * @param app
+ * @constructor
+ */
 const AuthenticationController = (app: Express) => {
     
     const userDao: UserDao = UserDao.getInstance();

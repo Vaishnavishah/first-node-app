@@ -1,10 +1,10 @@
 /**
- * @file Controller Interface  for Like resource
+ * @file Controller Interface  for Dislike resource
  */
 import {Request, Response} from "express";
 
 /**
- * The interface contains the method signatures that need to be implemented by the Controller for Like resource
+ * The interface contains the method signatures that need to be implemented by the Controller for Dislike resource
  */
 export default interface DislikeControllerI {
     findAllUsersThatDislikedTuit (req: Request, res: Response): void;

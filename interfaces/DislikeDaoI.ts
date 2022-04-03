@@ -2,7 +2,7 @@ import Like from "../models/Like";
 import Dislike from "../models/Dislike";
 
 /**
- * @file Declares API for Likes related data access object methods
+ * @file Declares API for Dislikes related data access object methods
  */
 export default interface DislikeDaoI {
     findAllUsersThatDislikedTuit (tid: string): Promise<Dislike[]>;
